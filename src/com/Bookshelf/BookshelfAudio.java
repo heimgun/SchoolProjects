@@ -2,16 +2,16 @@ package com.Bookshelf;
 
 import java.util.ArrayList;
 
-public class Bookshelf {
+public class BookshelfAudio {
 
-    private ArrayList<Book> myBooks;
+    private ArrayList<AudioBook> myBooks;
 
     //Konstruktor
-    public Bookshelf(){
-        this.myBooks = new ArrayList<Book>();
+    public BookshelfAudio(){
+        this.myBooks = new ArrayList<AudioBook>();
     }
 
-    public boolean addNewBook(Book book){
+    public boolean addNewBook(AudioBook book){
         if(findBook(book.getName()) >= 0){
             System.out.println("The book is already in the Shelf");
             return false;
@@ -20,7 +20,7 @@ public class Bookshelf {
         return true;
     }
 
-    private int findBook(Book book) {
+    private int findBook(AudioBook book) {
         return this.myBooks.indexOf(book);
     }
 
@@ -34,7 +34,7 @@ public class Bookshelf {
         return -1;
     }
 
-    public boolean removeBook(Book book) {
+    public boolean removeBook(AudioBook book) {
         int foundPosition = findBook(book);
         if(foundPosition <0) {
             System.out.println(book.getName() +" could not be found in Shelf.");
@@ -46,10 +46,6 @@ public class Bookshelf {
     }
 
 
-
-
-
-
     public void printShelf(){
         System.out.println("Current Bookshelf:");
         for (int i=0;i<myBooks.size();i++){
@@ -58,19 +54,23 @@ public class Bookshelf {
         }
     }
 
-    public String queBook(Book book) {
+    public String queBook(AudioBook book) {
         if(findBook(book) >=0) {
             return book.getName();
         }
         return null;
     }
 
-    public Book queBook(String name) { // (Vi returnerar Contact (ett objekt))
+    public AudioBook queBook(String name) {
         int position = findBook(name);
         if(position >=0) {
-            return this.myBooks.get(position);
+            return (AudioBook) this.myBooks.get(position);
         }
 
         return null;
     }
+
+    //Metode for tilfeldig utvalgt anbefalning av bok
+
+
 }
