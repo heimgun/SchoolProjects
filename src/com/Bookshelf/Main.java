@@ -4,36 +4,85 @@ import java.util.Scanner;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
-    public static Bookshelf bookshelf = new Bookshelf();
+    public static BookshelfAudio bookshelf = new BookshelfAudio();
 
     public static void main(String[] args) {
 
-        boolean quit = false;
-        printOptions();
+        boolean exit = false;
+        printWelcome();
 
-        while(!quit){
-            System.out.println("Choose option:");
-            int choise = scanner.nextInt();
+        while (!exit) {
+            System.out.println("Type answer:");
+            int shelfChoise = scanner.nextInt();
             scanner.nextLine();
 
-            switch(choise){
-                case 0:
-                    printOptions();
-                    break;
+            switch (shelfChoise) {
                 case 1:
-                    addNewBook();
+                    boolean quit = false;
+                    printOptions();
+
+                        while (!quit) {
+                            System.out.println("Choose option:");
+                            int choise = scanner.nextInt();
+                            scanner.nextLine();
+
+                            switch (choise) {
+                                case 0:
+                                    printOptions();
+                                    break;
+                                case 1:
+                                    addNewBook();
+                                    break;
+                                case 2:
+                                    bookshelf.printShelf();
+                                    break;
+                                case 3:
+                                    removeBook();
+                                    break;
+                                case 4:
+                                    quit = true;
+                                    break;
+                            }
+                        }
+
                     break;
+
                 case 2:
-                    bookshelf.printShelf();
-                    break;
-                case 3:
-                    removeBook();
-                    break;
-                case 4:
-                    quit = true;
+                    /*
+                    boolean quit = false;
+                    printOptions();
+
+                        while (!quit) {
+                            System.out.println("Choose option:");
+                            int choise = scanner.nextInt();
+                            scanner.nextLine();
+
+                            switch (choise) {
+                                case 0:
+                                    printOptions();
+                                    break;
+                                case 1:
+                                    addNewBook();
+                                    break;
+                                case 2:
+                                    bookshelf.printShelf();
+                                    break;
+                                case 3:
+                                    removeBook();
+                                    break;
+                                case 4:
+                                    quit = true;
+                                    break;
+                            }
+                        }
+
+                    break
+                     */
                     break;
 
-
+                case 0:
+                    exit = true;
+                    break;
             }
         }
 
@@ -57,11 +106,15 @@ public class Main {
         String year = scanner.nextLine();
         System.out.println("Write author:");
         String author = scanner.nextLine();
+        System.out.println("How many minutes is the book?");
+        String minutes = scanner.nextLine();
+        System.out.println();
         //Objekt skapes:
-        Book newBook = Book.createBook(name, year, author);
+        AudioBook newBook = AudioBook.createBook(name, year, author, minutes);
         //Legger til objektet i arrayen om den ikke allerede er der.
         if (bookshelf.addNewBook(newBook)){
-            System.out.println("This book has been added to shelf: \n" + name + "\nYear: " + year + "\nAuthor: " + author);
+            System.out.println("This book has been added to shelf: \n" + name + "\nYear: " + year + "\nAuthor: " + author + "\nMinutes: "+ minutes);
+            System.out.println();
         }
         else {
             System.out.println(name + " is already in bookshelf.");
@@ -77,9 +130,16 @@ public class Main {
                 return;
             }
 
-            if (bookshelf.removeBook(existingBook)){
+            if (bookshelf.removeBook((AudioBook) existingBook)){
                 System.out.println("Book has been removed from Shelf.");
             }
+        }
+
+        private static void printWelcome(){
+            System.out.println("Welcome to BookShelf! What type of shelf would you like to access?");
+            System.out.println("\t 0 - Quit Bookshelf");
+            System.out.println("\t 1 - Audiobook-Shelf");
+            System.out.println("\t 2 - Paperbook-Shelf");
         }
 
 }

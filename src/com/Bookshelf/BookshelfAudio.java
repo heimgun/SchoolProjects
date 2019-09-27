@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class BookshelfAudio {
 
-    private ArrayList<AudioBook> myBooks;
+    private ArrayList<AudioBook> myAudioBooks;
 
     //Konstruktor
     public BookshelfAudio(){
-        this.myBooks = new ArrayList<AudioBook>();
+        this.myAudioBooks = new ArrayList<AudioBook>();
     }
 
     public boolean addNewBook(AudioBook book){
@@ -16,17 +16,17 @@ public class BookshelfAudio {
             System.out.println("The book is already in the Shelf");
             return false;
         }
-        myBooks.add(book);
+        myAudioBooks.add(book);
         return true;
     }
 
     private int findBook(AudioBook book) {
-        return this.myBooks.indexOf(book);
+        return this.myAudioBooks.indexOf(book);
     }
 
     private int findBook(String bookName) {
-        for(int i=0; i<this.myBooks.size(); i++) {
-            Book book = this.myBooks.get(i);
+        for(int i=0; i<this.myAudioBooks.size(); i++) {
+            Book book = this.myAudioBooks.get(i);
             if(book.getName().equals(bookName)) {
                 return i;
             }
@@ -40,7 +40,7 @@ public class BookshelfAudio {
             System.out.println(book.getName() +" could not be found in Shelf.");
             return false;
         }
-        this.myBooks.remove(foundPosition);
+        this.myAudioBooks.remove(foundPosition);
         System.out.println(book.getName() + " has been removed from Shelf.");
         return true;
     }
@@ -48,8 +48,8 @@ public class BookshelfAudio {
 
     public void printShelf(){
         System.out.println("Current Bookshelf:");
-        for (int i=0;i<myBooks.size();i++){
-            System.out.println(this.myBooks.get(i).getName() + " by " + this.myBooks.get(i).getAuthor() + "\nYear: " + this.myBooks.get(i).getYear());
+        for (int i=0;i<myAudioBooks.size();i++){
+            System.out.println(this.myAudioBooks.get(i).getName() + " by " + this.myAudioBooks.get(i).getAuthor() + "\nYear: " + this.myAudioBooks.get(i).getYear() + " - Minutes: " + this.myAudioBooks.get(i).getMinutes());
             System.out.println();
         }
     }
@@ -64,7 +64,7 @@ public class BookshelfAudio {
     public AudioBook queBook(String name) {
         int position = findBook(name);
         if(position >=0) {
-            return (AudioBook) this.myBooks.get(position);
+            return (AudioBook) this.myAudioBooks.get(position);
         }
 
         return null;
