@@ -2,11 +2,12 @@ package com.Bookshelf;
 
 public class Book {
 
+    //Variables for superclass Book
     private String name;
     private String year;
     private String author;
 
-    //Konstruktor
+    //Constructor
     public Book(String name, String year, String author){
         this.name = name;
         this.year = year;
