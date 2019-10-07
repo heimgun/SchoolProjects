@@ -1,5 +1,6 @@
 package com.Bookshelf;
 
+import java.util.Collection;
 import java.util.Scanner;
 
 public class Main {
@@ -12,7 +13,7 @@ public class Main {
     //This is where we run the program:
     public static void main(String[] args) {
 
-        //Main boolean where you choose between Audio and Paper
+        //Main boolean where user choose between Audio and Paper
         boolean exit = false;
 
         while (!exit) {
@@ -28,6 +29,7 @@ public class Main {
                     boolean quit = false;
                     printOptions();
 
+                        //While and Switchcase 1.1
                         while (!quit) {
                             System.out.println("Choose option:");
                             int choice = scanner.nextInt();
@@ -47,6 +49,9 @@ public class Main {
                                     removeBook();
                                     break;
                                 case 4:
+                                    bookshelf.audioSort();
+                                    break;
+                                case 5:
                                     quit = true;
                                     break;
                             }
@@ -58,6 +63,7 @@ public class Main {
                     boolean quit2 = false;
                     printOptions();
 
+                        //While and Switchcase 1.2
                         while (!quit2) {
                             System.out.println("Choose option:");
                             int choice = scanner.nextInt();
@@ -77,6 +83,9 @@ public class Main {
                                     removeBook2();
                                     break;
                                 case 4:
+                                    bookshelf2.paperSort();
+                                    break;
+                                case 5:
                                     quit2 = true;
                                     break;
                             }
@@ -106,9 +115,11 @@ public class Main {
         System.out.println("Options in Bookshelf:");
         System.out.println("\t 0 - Show options");
         System.out.println("\t 1 - Add book");
-        System.out.println("\t 2 - Show Bookshelf");
+        System.out.println("\t 2 - Show current Bookshelf");
         System.out.println("\t 3 - Remove book");
-        System.out.println("\t 4 - Back to main menu");
+        System.out.println("\t 4 - Sort book by critics");
+        System.out.println("\t 5 - Search for book");
+        System.out.println("\t 6 - Back to main menu");
     }
 
     //Methods for AudioBooks:
@@ -117,17 +128,21 @@ public class Main {
         System.out.println("Write name of book:");
         String name = scanner.nextLine();
         System.out.println("Write release year:");
-        String year = scanner.nextLine();
+        int year = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("Write author:");
         String author = scanner.nextLine();
+        System.out.println("How many stars has it received from critics?");
+        float stars = scanner.nextFloat();
+        scanner.nextLine();
         System.out.println("How many minutes is the book?");
         String minutes = scanner.nextLine();
         System.out.println();
         //Object if being made:
-        AudioBook newBook = AudioBook.createBook(name, year, author, minutes);
+        AudioBook newBook = AudioBook.createBook(name, year, author, stars, minutes);
         //Adds book if its name is not already in Array, via Array-method
         if (bookshelf.addNewBook(newBook)){
-            System.out.println("This book has been added to shelf: \n" + name + "\nYear: " + year + "\nAuthor: " + author + "\nMinutes: "+ minutes);
+            System.out.println("This book has been added to shelf: \n" + name + "\nYear: " + year);
             System.out.println();
         }
         else {
@@ -150,6 +165,18 @@ public class Main {
             }
         }
 
+    private static void searchForBook(){
+        System.out.println("Name year you would like to search for:");
+        String yearx = scanner.nextLine();
+        Book existingBook = bookshelf2.queBook(yearx);
+        if (existingBook == null){
+            System.out.println("Cannot find book in Shelf.");
+            return;
+        }
+        //Referer til metode for å søke opp og printe bøker med samme årstall
+
+    }
+
 
     //Methods for PaperBooks:
     //Method for getting information about book and adding it to Arraylist
@@ -157,17 +184,21 @@ public class Main {
         System.out.println("Write name of book:");
         String name = scanner.nextLine();
         System.out.println("Write release year:");
-        String year = scanner.nextLine();
+        int year = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("Write author:");
         String author = scanner.nextLine();
+        System.out.println("How many stars has it received from critics?");
+        float stars = scanner.nextFloat();
+        scanner.nextLine();
         System.out.println("How many pages is the book?");
         String pages = scanner.nextLine();
         System.out.println();
         //Object if being made:
-        PaperBook newBook = PaperBook.createBook(name, year, author, pages);
+        PaperBook newBook = PaperBook.createBook(name, year, author, stars, pages);
         //Adds Object to Array if name is not already represented in ArrayList
         if (bookshelf2.addNewBook(newBook)){
-            System.out.println("This book has been added to shelf: \n" + name + "\nYear: " + year + "\nAuthor: " + author + "\nPages: "+ pages);
+            System.out.println("This book has been added to shelf: \n" + name + "\nYear: " + year);
             System.out.println();
         }
         else {
@@ -190,6 +221,17 @@ public class Main {
         }
     }
 
+    private static void searchForBook2(){
+        System.out.println("Name year you would like to search for:");
+        String yearx = scanner.nextLine();
+        Book existingBook = bookshelf2.queBook(yearx);
+        if (existingBook == null){
+            System.out.println("Cannot find book in Shelf.");
+            return;
+        }
+        //Referer til metode for å søke opp og printe bøker med samme årstall
+
+    }
 
 
 }

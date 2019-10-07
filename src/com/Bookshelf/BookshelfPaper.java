@@ -1,16 +1,19 @@
 package com.Bookshelf;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
-
-    public class BookshelfPaper {
+public class BookshelfPaper{
 
         private ArrayList<PaperBook> myPaperBooks;
+
 
         //Constructor
         public BookshelfPaper() {
             this.myPaperBooks = new ArrayList<PaperBook>();
         }
+
+
 
         //Method for searching if book is in shelf, otherwise adding book to shelf
         public boolean addNewBook(PaperBook book) {
@@ -57,9 +60,13 @@ import java.util.ArrayList;
         //Method for printing objects in the Arraylist, from first added to last, with the mentioned variables values
         public void printShelf() {
             System.out.println("Current Bookshelf:");
-            for (int i = 0; i < myPaperBooks.size(); i++) {
-                System.out.println(this.myPaperBooks.get(i).getName() + " by " + this.myPaperBooks.get(i).getAuthor() + "\nYear: " + this.myPaperBooks.get(i).getYear() + " - Pages: " + this.myPaperBooks.get(i).getPages());
-                System.out.println();
+            if (myPaperBooks.size()>0) {
+                for (int i = 0; i < myPaperBooks.size(); i++) {
+                    System.out.println(this.myPaperBooks.get(i).getName() + " by " + this.myPaperBooks.get(i).getAuthor() + "\nYear: " + this.myPaperBooks.get(i).getYear() + " - Pages: " + this.myPaperBooks.get(i).getPages() + "\nStars: " + this.myPaperBooks.get(i).getStars());
+                    System.out.println();
+                }
+            } else if (myPaperBooks.size()<=0){
+                System.out.println("Bookshelf is currently empty");
             }
         }
 
@@ -79,10 +86,43 @@ import java.util.ArrayList;
             return null;
         }
 
-        //Metode for tilfeldig utvalgt anbefalning av bok
-
-
+    public String queBookYear(PaperBook yearx) {
+        if (findBook(yearx) >= 0) {
+            return yearx.getYear();
+        }
+        return null;
     }
+
+    public PaperBook queBookYear(String yearx) {
+        int position = findBook(yearx);
+        if (position >= 0) {
+            return (PaperBook) this.myPaperBooks.get(position);
+        }
+
+        return null;
+    }
+
+        //Get book with highest rating
+        public void paperSort(){
+            Collections.sort(myPaperBooks, new PaperBookSort());
+            for(PaperBook a : myPaperBooks){
+                System.out.println(a.ToString());
+            }
+    }
+
+
+
+
+
+
+        //Get random book
+
+}
+
+
+
+
+
 
 
 
