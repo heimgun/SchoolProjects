@@ -70,13 +70,18 @@ public class BookshelfPaper{
             }
         }
 
-        public String queBook(PaperBook book) {
-            if (findBook(book) >= 0) {
-                return book.getName();
-            }
-            return null;
+    //IS THIS EVEN USEFUL
+   /* public String queBook(AudioBook book) {
+        if (findBook(book) >= 0) {
+            return book.getName();
         }
+        return null;
+    }
 
+    */
+
+
+    //Searching for a name in Shelf
         public PaperBook queBook(String name) {
             int position = findBook(name);
             if (position >= 0) {
@@ -86,20 +91,35 @@ public class BookshelfPaper{
             return null;
         }
 
-    public String queBookYear(PaperBook yearx) {
-        if (findBook(yearx) >= 0) {
-            return yearx.getYear();
+    //Finding a book using yearX
+    private int findBook(int yearX) {
+        for (int i = 0; i < this.myPaperBooks.size(); i++) {
+            Book book = this.myPaperBooks.get(i);
+            if (book.getYear() == yearX) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    //Finding the position of yearX in Arraylist if represented
+    public PaperBook queBookYear(int yearX) {
+        int position = findBook(yearX);
+        if (position >= 0) {
+            return (PaperBook) this.myPaperBooks.get(position);
         }
         return null;
     }
 
-    public PaperBook queBookYear(String yearx) {
-        int position = findBook(yearx);
-        if (position >= 0) {
-            return (PaperBook) this.myPaperBooks.get(position);
+
+    //Printing Books consistent with yearX
+    public void printYear(int yearX) {
+        for (PaperBook d : myPaperBooks) {
+            if (d.getYear() >= 0 && d.getYear() == (yearX)) {
+                System.out.println(d.ToString());
+            }
         }
 
-        return null;
     }
 
         //Get book with highest rating
@@ -112,10 +132,6 @@ public class BookshelfPaper{
 
 
 
-
-
-
-        //Get random book
 
 }
 

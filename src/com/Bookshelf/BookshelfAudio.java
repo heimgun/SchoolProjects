@@ -59,12 +59,16 @@ public class BookshelfAudio {
         }
     }
 
-    public String queBook(AudioBook book) {
+
+    //IS THIS EVEN USEFUL
+   /* public String queBook(AudioBook book) {
         if (findBook(book) >= 0) {
             return book.getName();
         }
         return null;
     }
+
+    */
 
     public AudioBook queBook(String name) {
         int position = findBook(name);
@@ -73,6 +77,33 @@ public class BookshelfAudio {
         }
 
         return null;
+    }
+
+    private int findBook(int yearX) {
+        for (int i = 0; i < this.myAudioBooks.size(); i++) {
+            Book book = this.myAudioBooks.get(i);
+            if (book.getYear() == yearX) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public AudioBook queBookYear(int yearX) {
+        int position = findBook(yearX);
+        if (position >= 0) {
+            return (AudioBook) this.myAudioBooks.get(position);
+        }
+        return null;
+    }
+
+    public void printYear(int yearX) {
+        for (AudioBook d : myAudioBooks) {
+            if (d.getYear() >= 0 && d.getYear() == (yearX)) {
+                System.out.println(d.ToString());
+            }
+        }
+
     }
 
     //Metode for tilfeldig utvalgt anbefalning av bok

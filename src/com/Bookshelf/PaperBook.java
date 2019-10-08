@@ -34,12 +34,15 @@ public class PaperBook extends Book{
         return super.getName();
     }
 
+    @Override
+    public int getYear() { return super.getYear();}
+
     //Method for creating PaperBook
     public static PaperBook createBook (String name, int year, String author, float stars, String pages){
         return new PaperBook(name, year, author, stars, pages);}
 
     public String ToString(){
-        return "Rating: " + getStars() + " - Book: " + getName();
+        return "Book: " + getName() + " - Rating: " + getStars();
     }
 
 }
@@ -47,7 +50,7 @@ public class PaperBook extends Book{
 //Class to sort books via Comparator
 class PaperBookSort implements Comparator<PaperBook> {
     public int compare(PaperBook b1, PaperBook b2) {
-        return Float.compare(b1.getStars(), b2.getStars());
+        return Float.compare(b2.getStars(), b1.getStars());
     }
 
 }

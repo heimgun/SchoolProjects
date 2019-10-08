@@ -28,17 +28,21 @@ public class AudioBook extends Book {
         return super.getName();
     }
 
+    @Override
+    public int getYear() { return super.getYear(); }
+
     //Getter for AudioBook
     public String getMinutes() {
         return minutes;
     }
+
 
     //Method for creating AudioBook
     public static AudioBook createBook (String name, int year, String author, float stars, String minutes){
         return new AudioBook(name, year, author, stars, minutes);}
 
     public String ToString(){
-        return "Rating: " + getStars() + " - Book: " + getName();
+        return "Book: " + getName() + " - Rating: " + getStars();
     }
 
 }
@@ -46,6 +50,6 @@ public class AudioBook extends Book {
 //Class to sort books via Comparator
 class AudioBookSort implements Comparator<AudioBook> {
     public int compare(AudioBook b1, AudioBook b2) {
-        return Float.compare(b1.getStars(), b2.getStars());
+        return Float.compare(b2.getStars(), b1.getStars());
     }
 }
