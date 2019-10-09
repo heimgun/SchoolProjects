@@ -25,15 +25,7 @@ public class BookshelfAudio {
         return this.myAudioBooks.indexOf(book);
     }
 
-    private int findBook(String bookName) {
-        for (int i = 0; i < this.myAudioBooks.size(); i++) {
-            Book book = this.myAudioBooks.get(i);
-            if (book.getName().equals(bookName)) {
-                return i;
-            }
-        }
-        return -1;
-    }
+
 
     public boolean removeBook(AudioBook book) {
         int foundPosition = findBook(book);
@@ -59,16 +51,16 @@ public class BookshelfAudio {
         }
     }
 
-
-    //IS THIS EVEN USEFUL
-   /* public String queBook(AudioBook book) {
-        if (findBook(book) >= 0) {
-            return book.getName();
+    //SEARCH FOR NAME(TITLE)
+    private int findBook(String bookName) {
+        for (int i = 0; i < this.myAudioBooks.size(); i++) {
+            Book book = this.myAudioBooks.get(i);
+            if (book.getName().equals(bookName)) {
+                return i;
+            }
         }
-        return null;
+        return -1;
     }
-
-    */
 
     public AudioBook queBook(String name) {
         int position = findBook(name);
@@ -79,6 +71,49 @@ public class BookshelfAudio {
         return null;
     }
 
+    public void printTitle(String name) {
+        for (AudioBook d : myAudioBooks) {
+            if (((d.getName() != null) && (d.getName().equals(name)))) {
+                System.out.println(d.ToString());
+            }
+        }
+
+    }
+
+
+
+    //SEARCH FOR AUTHOR
+    private int findAuthor(String author) {
+        for (int i = 0; i < this.myAudioBooks.size(); i++) {
+            Book book = this.myAudioBooks.get(i);
+            if (book.getAuthor().equals(author)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public AudioBook queAuthor(String name) {
+        int position = findAuthor(name);
+        if (position >= 0) {
+            return (AudioBook) this.myAudioBooks.get(position);
+        }
+
+        return null;
+    }
+
+
+    public void printAuthor(String author) {
+        for (AudioBook d : myAudioBooks) {
+            if ((d.getAuthor() != null) && (d.getAuthor().equals(author))) {
+                System.out.println(d.ToString());
+            }
+        }
+
+    }
+
+
+    //SEARCH FOR YEAR
     private int findBook(int yearX) {
         for (int i = 0; i < this.myAudioBooks.size(); i++) {
             Book book = this.myAudioBooks.get(i);
@@ -89,6 +124,7 @@ public class BookshelfAudio {
         return -1;
     }
 
+
     public AudioBook queBookYear(int yearX) {
         int position = findBook(yearX);
         if (position >= 0) {
@@ -96,6 +132,7 @@ public class BookshelfAudio {
         }
         return null;
     }
+
 
     public void printYear(int yearX) {
         for (AudioBook d : myAudioBooks) {
@@ -106,7 +143,9 @@ public class BookshelfAudio {
 
     }
 
-    //Metode for tilfeldig utvalgt anbefalning av bok
+
+
+    //Method for sorting books by rating
     public void audioSort() {
         Collections.sort(myAudioBooks, new AudioBookSort());
         for (AudioBook a: myAudioBooks) {

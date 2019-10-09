@@ -51,7 +51,26 @@ public class Main {
                                 bookshelf.audioSort();
                                 break;
                             case 5:
-                                searchForBook();
+                                boolean runSearch = true;
+                                searchOptions();
+
+                                while (runSearch){
+                                    System.out.println("Choose option:");
+                                    int searchChoice = scanner.nextInt();
+                                    scanner.nextLine();
+
+                                    switch(searchChoice){
+                                        case 1:
+                                            searchForTitle();
+                                            break;
+                                        case 2:
+                                            searchForAuthor();
+                                            break;
+                                        case 3:
+                                            searchForYear();
+                                            break;
+                                    }
+                                }
                                 break;
                             case 6:
                                 quit = true;
@@ -88,7 +107,26 @@ public class Main {
                                 bookshelf2.paperSort();
                                 break;
                             case 5:
-                                searchForBook2();
+                                boolean runSearch2 = true;
+                                searchOptions();
+
+                                while (runSearch2){
+                                    System.out.println("Choose option:");
+                                    int searchChoice = scanner.nextInt();
+                                    scanner.nextLine();
+
+                                    switch(searchChoice){
+                                        case 1:
+                                            searchForTitle2();
+                                            break;
+                                        case 2:
+                                            searchForAuthor2();
+                                            break;
+                                        case 3:
+                                            searchForYear2();
+                                            break;
+                                    }
+                                }
                                 break;
                             case 6:
                                 quit2 = true;
@@ -107,12 +145,18 @@ public class Main {
 
     }
 
+    /*
+    Under we have the 3 different "menus" that will appear to the user of the program. Trough these menus the user will
+    choose an option based upon an integer scanner will scan into the program and act upon.
+     */
+
     //1st list of options
     private static void printWelcome() {
-        System.out.println("Welcome to BookShelf! What type of shelf would you like to access?");
+        System.out.println("Welcome to the Library! What section would you like to access?");
+        System.out.println("\t 1 - Audiobooks");
+        System.out.println("\t 2 - Paperbooks");
+        System.out.println();
         System.out.println("\t 0 - Quit Bookshelf");
-        System.out.println("\t 1 - Audiobook-Shelf");
-        System.out.println("\t 2 - Paperbook-Shelf");
     }
 
     //2nd list of options user has to consider
@@ -120,14 +164,25 @@ public class Main {
         System.out.println("Options in Bookshelf:");
         System.out.println("\t 0 - Show options");
         System.out.println("\t 1 - Add book");
-        System.out.println("\t 2 - Show current Bookshelf");
-        System.out.println("\t 3 - Remove book");
-        System.out.println("\t 4 - Sort book by critics");
+        System.out.println("\t 2 - All books");
+        System.out.println("\t 3 - Borrow book");
+        System.out.println("\t 4 - The best books");
         System.out.println("\t 5 - Search for book");
+        System.out.println();
         System.out.println("\t 6 - Back to main menu");
     }
 
+    //Search for Books-options
+    private static void searchOptions(){
+        System.out.println("\t 1 - Search for title");
+        System.out.println("\t 2 - Search for author");
+        System.out.println("\t 3 - Search for year");
+        System.out.println();
+        System.out.println("\t 4 - Back to shelf");
+    }
+
     //Methods for AudioBooks:
+
     //Method for getting values to variables and adding object to Arraylist if not already there
     private static void addNewBook() {
         System.out.println("Write name of book:");
@@ -169,25 +224,66 @@ public class Main {
         }
     }
 
-    private static void searchForBook() {
-        System.out.println("Name year you would like to search for:");
-        int yearX = scanner.nextInt();
-        scanner.nextLine();
-        Book existingBook = bookshelf.queBookYear(yearX);
+    /*
+    Underneath are the methods for use of option 5 "Search for book", here you can scan the library for specific
+    title, author and year.
+     */
+
+        //Search for title
+        private static void searchForTitle() {
+        System.out.println("Name title you would like to search for:");
+        String title = scanner.nextLine();
+        Book existingBook = bookshelf.queBook(title);
         if (existingBook == null) {
-            System.out.println("Cannot find year represented");
+            System.out.println("Cannot find " + title + " in library.");
             return;
         }
 
         if (existingBook != null) {
-            System.out.println("Something here");
-            bookshelf.printYear(yearX);
+            System.out.println("Books named " + title + ": ");
+            bookshelf.printTitle(title);
             return;
+        }
+    }
+
+
+        //Search for Author
+        private static void searchForAuthor() {
+            System.out.println("Name author you would like to search for:");
+            String author = scanner.nextLine();
+            Book existingBook = bookshelf.queAuthor(author);
+            if (existingBook == null) {
+                System.out.println("Cannot find " + author + " in library.");
+                return;
+            }
+
+            if (existingBook != null) {
+                System.out.println("Books by " + author +":");
+                bookshelf.printAuthor(author);
+                return;
+            }
         }
 
 
-    }
+        private static void searchForYear() {
+            System.out.println("Name year you would like to search for:");
+             int yearX = scanner.nextInt();
+            scanner.nextLine();
 
+            Book existingBook = bookshelf.queBookYear(yearX);
+             if (existingBook == null) {
+                 System.out.println("Cannot find year " + yearX + " in library.");
+                 return;
+            }
+
+            if (existingBook != null) {
+                System.out.println("Books published in " + yearX + ":");
+                 bookshelf.printYear(yearX);
+                return;
+             }
+
+
+    }
     //Methods for PaperBooks:
     //Method for getting information about book and adding it to Arraylist
     private static void addNewBook2() {
@@ -230,18 +326,55 @@ public class Main {
         }
     }
 
-    private static void searchForBook2() {
+    //Search for title
+    private static void searchForTitle2() {
+        System.out.println("Name title you would like to search for:");
+        String title = scanner.nextLine();
+        Book existingBook = bookshelf2.queBook(title);
+        if (existingBook == null) {
+            System.out.println("Cannot find " + title + " in library.");
+            return;
+        }
+
+        if (existingBook != null) {
+            System.out.println("Books named " + title + ": ");
+            bookshelf2.printTitle(title);
+            return;
+        }
+    }
+
+
+    //Search for Author
+    private static void searchForAuthor2() {
+        System.out.println("Name author you would like to search for:");
+        String author = scanner.nextLine();
+        Book existingBook = bookshelf2.queAuthor(author);
+        if (existingBook == null) {
+            System.out.println("Cannot find " + author + " in library.");
+            return;
+        }
+
+        if (existingBook != null) {
+            System.out.println("Books by " + author +":");
+            bookshelf2.printAuthor(author);
+            return;
+        }
+    }
+
+
+    private static void searchForYear2() {
         System.out.println("Name year you would like to search for:");
         int yearX = scanner.nextInt();
         scanner.nextLine();
 
         Book existingBook = bookshelf2.queBookYear(yearX);
         if (existingBook == null) {
-            System.out.println("Cannot find year represented");
+            System.out.println("Cannot find year " + yearX + " in library.");
             return;
         }
+
         if (existingBook != null) {
-            System.out.println("Something here");
+            System.out.println("Books published in " + yearX + ":");
             bookshelf2.printYear(yearX);
             return;
         }

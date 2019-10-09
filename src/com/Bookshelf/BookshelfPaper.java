@@ -30,16 +30,6 @@ public class BookshelfPaper{
             return this.myPaperBooks.indexOf(book);
         }
 
-        //Method for getting a certain books "place" (int) in the Arraylist by using the books name (string)
-        private int findBook(String bookName) {
-            for (int i = 0; i < this.myPaperBooks.size(); i++) {
-                Book book = this.myPaperBooks.get(i);
-                if (book.getName().equals(bookName)) {
-                    return i;
-                }
-            }
-            return -1;
-        }
 
         /*
         Method for removing a book from the ArrayList by using findBook(), if the book has a place in the list (its number is
@@ -81,7 +71,18 @@ public class BookshelfPaper{
     */
 
 
-    //Searching for a name in Shelf
+    //SEARCH FOR NAME(TITLE)
+    private int findBook(String bookName) {
+        for (int i = 0; i < this.myPaperBooks.size(); i++) {
+            Book book = this.myPaperBooks.get(i);
+            if (book.getName().equals(bookName)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
         public PaperBook queBook(String name) {
             int position = findBook(name);
             if (position >= 0) {
@@ -91,7 +92,49 @@ public class BookshelfPaper{
             return null;
         }
 
-    //Finding a book using yearX
+    public void printTitle(String name) {
+        for (PaperBook d : myPaperBooks) {
+            if (((d.getName() != null) && (d.getName().equals(name)))) {
+                System.out.println(d.ToString());
+            }
+        }
+
+    }
+
+
+
+    //SEARCH FOR AUTHOR
+    private int findAuthor(String author) {
+        for (int i = 0; i < this.myPaperBooks.size(); i++) {
+            Book book = this.myPaperBooks.get(i);
+            if (book.getAuthor().equals(author)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public PaperBook queAuthor(String name) {
+        int position = findAuthor(name);
+        if (position >= 0) {
+            return (PaperBook) this.myPaperBooks.get(position);
+        }
+
+        return null;
+    }
+
+
+    public void printAuthor(String author) {
+        for (PaperBook d : myPaperBooks) {
+            if ((d.getAuthor() != null) && (d.getAuthor().equals(author))) {
+                System.out.println(d.ToString());
+            }
+        }
+
+    }
+
+
+    //SEARCH FOR YEAR
     private int findBook(int yearX) {
         for (int i = 0; i < this.myPaperBooks.size(); i++) {
             Book book = this.myPaperBooks.get(i);
@@ -102,7 +145,6 @@ public class BookshelfPaper{
         return -1;
     }
 
-    //Finding the position of yearX in Arraylist if represented
     public PaperBook queBookYear(int yearX) {
         int position = findBook(yearX);
         if (position >= 0) {
@@ -111,8 +153,6 @@ public class BookshelfPaper{
         return null;
     }
 
-
-    //Printing Books consistent with yearX
     public void printYear(int yearX) {
         for (PaperBook d : myPaperBooks) {
             if (d.getYear() >= 0 && d.getYear() == (yearX)) {
