@@ -41,14 +41,18 @@ public class PaperBook extends Book{
     public static PaperBook createBook (String name, int year, String author, float stars, String pages){
         return new PaperBook(name, year, author, stars, pages);}
 
+    //Method returning a String
     public String ToString(){
         return "Book: " + getName() + " - Rating: " + getStars();
     }
 
 }
 
-//Class to sort books via Comparator
-class PaperBookSort implements Comparator<PaperBook> {
+    /**
+    * This is a class which compares two objects in AudioBook based upon getStars()
+    * It is used in the Arraylist to get sorted
+    */
+    class PaperBookSort implements Comparator<PaperBook> {
     public int compare(PaperBook b1, PaperBook b2) {
         return Float.compare(b2.getStars(), b1.getStars());
     }

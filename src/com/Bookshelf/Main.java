@@ -4,15 +4,24 @@ import java.util.Scanner;
 
 public class Main {
 
-    //Connection to Arraylists and introduction to scanner
+    /**
+     * Here is the connections we need in the program.
+     *  - Scanner to comprehend user input
+     *  - An Arraylist for AudioBooks
+     *  - An Arraylist for PaperBooks
+     */
     private static Scanner scanner = new Scanner(System.in);
     public static BookshelfAudio bookshelf = new BookshelfAudio();
     public static BookshelfPaper bookshelf2 = new BookshelfPaper();
 
-    //This is where we run the program:
+    /**
+     * main runs the program and here it is chosen which method to implement based on the users wishes
+     * main mainly consists of while and switch to do this.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
 
-        //Main boolean where user choose between Audio and Paper
         boolean exit = false;
 
         while (!exit) {
@@ -51,23 +60,27 @@ public class Main {
                                 bookshelf.audioSort();
                                 break;
                             case 5:
-                                boolean runSearch = true;
+                                boolean stop = false;
                                 searchOptions();
 
-                                while (runSearch){
+                                //While and Switchcase 1.2
+                                while (!stop) {
                                     System.out.println("Choose option:");
-                                    int searchChoice = scanner.nextInt();
+                                    int search = scanner.nextInt();
                                     scanner.nextLine();
 
-                                    switch(searchChoice){
-                                        case 1:
+                                    switch (search) {
+                                        case 0:
                                             searchForTitle();
                                             break;
-                                        case 2:
+                                        case 1:
                                             searchForAuthor();
                                             break;
-                                        case 3:
+                                        case 2:
                                             searchForYear();
+                                            break;
+                                        case 3:
+                                            stop = true;
                                             break;
                                     }
                                 }
@@ -84,7 +97,7 @@ public class Main {
                     boolean quit2 = false;
                     printOptions();
 
-                    //While and Switchcase 1.2
+                    //While and Switchcase 2.1
                     while (!quit2) {
                         System.out.println("Choose option:");
                         int choice = scanner.nextInt();
@@ -107,23 +120,27 @@ public class Main {
                                 bookshelf2.paperSort();
                                 break;
                             case 5:
-                                boolean runSearch2 = true;
+                                boolean stop = false;
                                 searchOptions();
 
-                                while (runSearch2){
+                                //While and Switchcase 2.2
+                                while (!stop) {
                                     System.out.println("Choose option:");
-                                    int searchChoice = scanner.nextInt();
+                                    int search = scanner.nextInt();
                                     scanner.nextLine();
 
-                                    switch(searchChoice){
-                                        case 1:
+                                    switch (search) {
+                                        case 0:
                                             searchForTitle2();
                                             break;
-                                        case 2:
+                                        case 1:
                                             searchForAuthor2();
                                             break;
-                                        case 3:
+                                        case 2:
                                             searchForYear2();
+                                            break;
+                                        case 3:
+                                            stop = true;
                                             break;
                                     }
                                 }
@@ -150,7 +167,9 @@ public class Main {
     choose an option based upon an integer scanner will scan into the program and act upon.
      */
 
-    //1st list of options
+    /**
+     * First menu
+     */
     private static void printWelcome() {
         System.out.println("Welcome to the Library! What section would you like to access?");
         System.out.println("\t 1 - Audiobooks");
@@ -159,32 +178,41 @@ public class Main {
         System.out.println("\t 0 - Quit Bookshelf");
     }
 
-    //2nd list of options user has to consider
+    /**
+     * 2nd menu
+     */
     private static void printOptions() {
         System.out.println("Options in Bookshelf:");
         System.out.println("\t 0 - Show options");
         System.out.println("\t 1 - Add book");
         System.out.println("\t 2 - All books");
         System.out.println("\t 3 - Borrow book");
-        System.out.println("\t 4 - The best books");
+        System.out.println("\t 4 - The best books right now");
         System.out.println("\t 5 - Search for book");
         System.out.println();
         System.out.println("\t 6 - Back to main menu");
     }
 
-    //Search for Books-options
+    /**
+     * 3rd menu
+     */
     private static void searchOptions(){
-        System.out.println("\t 1 - Search for title");
-        System.out.println("\t 2 - Search for author");
-        System.out.println("\t 3 - Search for year");
+        System.out.println("\t 0 - Search for title");
+        System.out.println("\t 1 - Search for author");
+        System.out.println("\t 2 - Search for year");
         System.out.println();
-        System.out.println("\t 4 - Back to shelf");
+        System.out.println("\t 3 - Back to shelf");
     }
 
     //Methods for AudioBooks:
 
-    //Method for getting values to variables and adding object to Arraylist if not already there
+    /**
+     * This is the method for getting information from user about the book they wish to add
+     * It is if/else thing to either, if it is possible through addNewBook() in Arraylist, add
+     * the book, or state that the book already exists
+     */
     private static void addNewBook() {
+        System.out.println();
         System.out.println("Write name of book:");
         String name = scanner.nextLine();
         System.out.println("Write release year:");
@@ -209,9 +237,13 @@ public class Main {
         }
     }
 
-    //Method for removing book from Arraylist if its name is represented there
+    /**
+     * This is the method for "Borrow book", it just removes a book from the Arraylist if
+     * it is represented, or it states that it is not in the Arraylist.
+     */
     private static void removeBook() {
-        System.out.println("Name book you would like to remove:");
+        System.out.println();
+        System.out.println("Name book you would like to borrow:");
         String name = scanner.nextLine();
         Book existingBook = bookshelf.queBook(name);
         if (existingBook == null) {
@@ -229,8 +261,13 @@ public class Main {
     title, author and year.
      */
 
-        //Search for title
-        private static void searchForTitle() {
+    /**
+     * This method get information by user and
+     * uses queBook() in BookshelfAudio to scan for objects based on one variable in Arraylist.
+     * It prints objects with the variable asked by user, or states that it is not represented in Arraylist if not.
+     */
+    private static void searchForTitle() {
+        System.out.println();
         System.out.println("Name title you would like to search for:");
         String title = scanner.nextLine();
         Book existingBook = bookshelf.queBook(title);
@@ -246,12 +283,16 @@ public class Main {
         }
     }
 
-
-        //Search for Author
-        private static void searchForAuthor() {
-            System.out.println("Name author you would like to search for:");
-            String author = scanner.nextLine();
-            Book existingBook = bookshelf.queAuthor(author);
+    /**
+     * This method get information by user and
+     * uses queAuthor() in BookshelfAudio to scan for objects based on one variable in Arraylist.
+     * It prints objects with the variable asked by user, or states that it is not represented in Arraylist if not.
+     */
+    private static void searchForAuthor() {
+        System.out.println();
+        System.out.println("Name author you would like to search for:");
+        String author = scanner.nextLine();
+        Book existingBook = bookshelf.queAuthor(author);
             if (existingBook == null) {
                 System.out.println("Cannot find " + author + " in library.");
                 return;
@@ -264,11 +305,16 @@ public class Main {
             }
         }
 
-
-        private static void searchForYear() {
-            System.out.println("Name year you would like to search for:");
-             int yearX = scanner.nextInt();
-            scanner.nextLine();
+    /**
+     * This method get information by user and
+     * uses queBookYear() in BookshelfAudio to scan for objects based on one variable in Arraylist.
+     * It prints objects with the variable asked by user, or states that it is not represented in Arraylist if not.
+     */
+    private static void searchForYear() {
+        System.out.println();
+        System.out.println("Name year you would like to search for:");
+        int yearX = scanner.nextInt();
+        scanner.nextLine();
 
             Book existingBook = bookshelf.queBookYear(yearX);
              if (existingBook == null) {
@@ -284,9 +330,16 @@ public class Main {
 
 
     }
+
     //Methods for PaperBooks:
-    //Method for getting information about book and adding it to Arraylist
+
+    /**
+     * This is the method for getting information from user about the book they wish to add
+     * It is if/else thing to either, if it is possible through addNewBook() in Arraylist, add
+     * the book, or state that the book already exists
+     */
     private static void addNewBook2() {
+        System.out.println();
         System.out.println("Write name of book:");
         String name = scanner.nextLine();
         System.out.println("Write release year:");
@@ -311,9 +364,13 @@ public class Main {
         }
     }
 
-    //Method for removing book from Arraylist if its name is represented there
+    /**
+     * This is the method for "Borrow book", it just removes a book from the Arraylist if
+     * it is represented, or it states that it is not in the Arraylist.
+     */
     private static void removeBook2() {
-        System.out.println("Name book you would like to remove:");
+        System.out.println();
+        System.out.println("Name book you would like to borrow:");
         String name = scanner.nextLine();
         Book existingBook = bookshelf2.queBook(name);
         if (existingBook == null) {
@@ -326,8 +383,18 @@ public class Main {
         }
     }
 
-    //Search for title
+    /*
+    Underneath are the methods for use of option 5 "Search for book", here you can scan the library for specific
+    title, author and year.
+     */
+
+    /**
+     * This method get information by user and
+     * uses queBook() in BookshelfPaper to scan for objects based on one variable in Arraylist.
+     * It prints objects with the variable asked by user, or states that it is not represented in Arraylist if not.
+     */
     private static void searchForTitle2() {
+        System.out.println();
         System.out.println("Name title you would like to search for:");
         String title = scanner.nextLine();
         Book existingBook = bookshelf2.queBook(title);
@@ -343,9 +410,13 @@ public class Main {
         }
     }
 
-
-    //Search for Author
+    /**
+     * This method get information by user and
+     * uses queAuthor() in BookshelfPaper to scan for objects based on one variable in Arraylist.
+     * It prints objects with the variable asked by user, or states that it is not represented in Arraylist if not.
+     */
     private static void searchForAuthor2() {
+        System.out.println();
         System.out.println("Name author you would like to search for:");
         String author = scanner.nextLine();
         Book existingBook = bookshelf2.queAuthor(author);
@@ -361,8 +432,13 @@ public class Main {
         }
     }
 
-
+    /**
+     * This method get information by user and
+     * uses queBookYear() in BookshelfPaper to scan for objects based on one variable in Arraylist.
+     * It prints objects with the variable asked by user, or states that it is not represented in Arraylist if not.
+     */
     private static void searchForYear2() {
+        System.out.println();
         System.out.println("Name year you would like to search for:");
         int yearX = scanner.nextInt();
         scanner.nextLine();

@@ -18,6 +18,7 @@ public class AudioBook extends Book {
         super(name, year, author, stars);
     }
 
+    //Getter for AudioBook
     @Override
     public float getStars() {
         return super.getStars();
@@ -31,7 +32,6 @@ public class AudioBook extends Book {
     @Override
     public int getYear() { return super.getYear(); }
 
-    //Getter for AudioBook
     public String getMinutes() {
         return minutes;
     }
@@ -47,8 +47,11 @@ public class AudioBook extends Book {
 
 }
 
-//Class to sort books via Comparator
-class AudioBookSort implements Comparator<AudioBook> {
+    /**
+    * This is a class which compares two objects in AudioBook based upon getStars()
+    * It is used in the Arraylist to get sorted
+    */
+    class AudioBookSort implements Comparator<AudioBook> {
     public int compare(AudioBook b1, AudioBook b2) {
         return Float.compare(b2.getStars(), b1.getStars());
     }
